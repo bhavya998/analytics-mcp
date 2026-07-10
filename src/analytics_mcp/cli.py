@@ -46,19 +46,29 @@ def init(
 @app.command()
 def inspect() -> None:
     """List all registered tools, resources, and prompts."""
+    import asyncio
+
     from analytics_mcp.server import mcp
 
-    console.print("\n[bold cyan]TOOLS:[/bold cyan]")
-    for tool in mcp._tool_manager.list_tools():
-        console.print(f"  - {tool.name}: {tool.description[:80] if tool.description else ''}")
+    async def _list() -> None:
+        console.print("\n[bold cyan]TOOLS:[/bold cyan]")
+        tools = await mcp.list_tools()
+        for tool in tools:
+            desc = (tool.description or "")[:80]
+            console.print(f"  - {tool.name}: {desc}")
 
-    console.print("\n[bold cyan]RESOURCES:[/bold cyan]")
-    for resource in mcp._resource_manager.list_resources():
-        console.print(f"  - {resource.uri}: {resource.description[:80] if resource.description else ''}")
+        console.print("\n[bold cyan]RESOURCES:[/bold cyan]")
+        resources = await mcp.list_resources()
+        for resource in resources:
+            console.print(f"  - {resource.uri}")
 
-    console.print("\n[bold cyan]PROMPTS:[/bold cyan]")
-    for prompt in mcp._prompt_manager.list_prompts():
-        console.print(f"  - {prompt.name}: {prompt.description[:80] if prompt.description else ''}")
+        console.print("\n[bold cyan]PROMPTS:[/bold cyan]")
+        prompts = await mcp.list_prompts()
+        for prompt in prompts:
+            desc = (prompt.description or "")[:80]
+            console.print(f"  - {prompt.name}: {desc}")
+
+    asyncio.run(_list())
 
 
 if __name__ == "__main__":
