@@ -1,0 +1,36 @@
+[project]
+name = "analytics-mcp"
+version = "0.1.0"
+description = "Production-grade MCP server for enterprise sales analytics — tools, resources, prompts over SQLite"
+readme = "README.md"
+authors = [
+    { name = "noob_boy", email = "bhavya260@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=3.4.0",
+    "pydantic>=2.13.0",
+    "rich>=15.0.0",
+    "typer>=0.26.0",
+]
+
+[project.scripts]
+analytics-mcp = "analytics_mcp.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.0",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.15.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
