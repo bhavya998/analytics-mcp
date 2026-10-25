@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Production-grade MCP server for enterprise sales analytics — tools, resources, prompts over SQLite"
 readme = "README.md"
 authors = [
-    { name = "noob_boy", email = "bhavya260@gmail.com" }
+    { name = "Bhavya Shah", email = "bhavya260@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
